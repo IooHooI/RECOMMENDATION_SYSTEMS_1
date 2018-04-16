@@ -3,3 +3,4 @@
 /.idea/
 /source/__pycache__/
 /source/code/__pycache__/
+/test/code/.cache/
