@@ -6,6 +6,7 @@ from tqdm import tqdm
 
 import numpy as np
 
+
 class SVDRecommender(BaseEstimator, RegressorMixin):
 
     def __init__(self, n_components):
