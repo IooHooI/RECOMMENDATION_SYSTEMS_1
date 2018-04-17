@@ -25,6 +25,7 @@ class TestPipeline(unittest.TestCase):
             ('sparse', SparseMatrixCreator()),
             ('fit', SVDRecommender(n_components=2))
         ])
+
         preprecessed_data_dict = preprocessing(self.data_dict, 50, 50)
 
         tds = TrainTestSplitter(preprecessed_data_dict, 100, 0.2)
