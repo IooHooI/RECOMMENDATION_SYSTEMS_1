@@ -16,12 +16,33 @@ class TestPipeline(unittest.TestCase):
     def setUp(self):
         enc = 'Windows-1251'
         addr = '../../notebooks/data/BX-{}.csv'
-        self.ratings = pd.read_csv(addr.format('Book-Ratings'), sep=';', header=0, error_bad_lines=False,
-                                   warn_bad_lines=False, low_memory=False, encoding=enc)
-        self.books = pd.read_csv(addr.format('Books'), sep=';', header=0, error_bad_lines=False, warn_bad_lines=False,
-                                 low_memory=False, encoding=enc)
-        self.users = pd.read_csv(addr.format('Users'), sep=';', header=0, error_bad_lines=False, warn_bad_lines=False,
-                                 low_memory=False, encoding=enc)
+        self.ratings = pd.read_csv(
+            filepath_or_buffer=addr.format('Book-Ratings'),
+            error_bad_lines=False,
+            warn_bad_lines=False,
+            low_memory=False,
+            encoding=enc,
+            header=0,
+            sep=';'
+        )
+        self.books = pd.read_csv(
+            filepath_or_buffer=addr.format('Books'),
+            error_bad_lines=False,
+            warn_bad_lines=False,
+            low_memory=False,
+            encoding=enc,
+            header=0,
+            sep=';'
+        )
+        self.users = pd.read_csv(
+            filepath_or_buffer=addr.format('Users'),
+            error_bad_lines=False,
+            warn_bad_lines=False,
+            low_memory=False,
+            encoding=enc,
+            header=0,
+            sep=';'
+        )
         self.data_dict = {'books': self.books, 'users': self.users, 'ratings': self.ratings}
 
     def test_case_1(self):
