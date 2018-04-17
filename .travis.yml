@@ -7,4 +7,5 @@ install:
   - pip install -r requirements.txt
 
 script:
-  - pytest test/code/testpipeline.py
+  - cd test/code/
+  - pytest testpipeline.py

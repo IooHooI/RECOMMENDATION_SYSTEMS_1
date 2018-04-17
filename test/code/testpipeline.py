@@ -14,7 +14,7 @@ class TestPipeline(unittest.TestCase):
 
     def setUp(self):
         enc = 'Windows-1251'
-        addr = 'notebooks/data/BX-{}.csv'
+        addr = '../../notebooks/data/BX-{}.csv'
         self.ratings = pd.read_csv(addr.format('Book-Ratings'), sep=';', header=0, error_bad_lines=False, encoding=enc)
         self.books = pd.read_csv(addr.format('Books'), sep=';', header=0, error_bad_lines=False, encoding=enc)
         self.users = pd.read_csv(addr.format('Users'), sep=';', header=0, error_bad_lines=False, encoding=enc)
