@@ -8,6 +8,7 @@ from source.code.sparse import SparseMatrixCreator
 from source.code.cfsvd import SVDRecommender
 from source.code.split import TrainTestSplitter
 from source.code.utils import preprocessing
+from source.code.metrics import rmse
 
 
 class TestPipeline(unittest.TestCase):
@@ -15,9 +16,12 @@ class TestPipeline(unittest.TestCase):
     def setUp(self):
         enc = 'Windows-1251'
         addr = '../../notebooks/data/BX-{}.csv'
-        self.ratings = pd.read_csv(addr.format('Book-Ratings'), sep=';', header=0, error_bad_lines=False, encoding=enc)
-        self.books = pd.read_csv(addr.format('Books'), sep=';', header=0, error_bad_lines=False, encoding=enc)
-        self.users = pd.read_csv(addr.format('Users'), sep=';', header=0, error_bad_lines=False, encoding=enc)
+        self.ratings = pd.read_csv(addr.format('Book-Ratings'), sep=';', header=0, error_bad_lines=False,
+                                   warn_bad_lines=False, low_memory=False, encoding=enc)
+        self.books = pd.read_csv(addr.format('Books'), sep=';', header=0, error_bad_lines=False, warn_bad_lines=False,
+                                 low_memory=False, encoding=enc)
+        self.users = pd.read_csv(addr.format('Users'), sep=';', header=0, error_bad_lines=False, warn_bad_lines=False,
+                                 low_memory=False, encoding=enc)
         self.data_dict = {'books': self.books, 'users': self.users, 'ratings': self.ratings}
 
     def test_case_1(self):
@@ -34,7 +38,11 @@ class TestPipeline(unittest.TestCase):
 
         pipeline.fit(train)
 
-        predictions = pipeline._final_estimator.predict(test)
+        y_pred = pipeline._final_estimator.predict(test)
+
+        y_true = test['ratings']['Book-Rating'].values
+
+        print(rmse(y_true, y_pred))
 
     def test_case_2(self):
         pipeline = Pipeline([
