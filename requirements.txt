@@ -114,7 +114,6 @@ pycrypto==2.6.1
 pycurl==7.43.0
 pyflakes==1.6.0
 Pygments==2.2.0
-pygpu==0.7.5
 PyJWT==1.6.1
 pylint==1.7.4
 PyOpenGL==3.1.1a1
