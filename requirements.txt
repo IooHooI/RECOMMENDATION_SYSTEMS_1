@@ -1,4 +1,4 @@
-surprise=1.0.5
+surprise==1.0.5
 adal==0.5.1
 alabaster==0.7.10
 AnyQt==0.0.8
