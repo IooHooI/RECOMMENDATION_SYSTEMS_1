@@ -54,7 +54,7 @@ class TestSVDPipeline(unittest.TestCase):
 
         preprecessed_data_dict = preprocessing(self.data_dict, True, 50, 50)
 
-        tds = TrainTestSplitter(preprecessed_data_dict, 100, 0.2)
+        tds = TrainTestSplitter(preprecessed_data_dict, 10, 0.2)
 
         train, test = next(tds.__iter__())
 
@@ -125,7 +125,7 @@ class TestNMFPipeline(unittest.TestCase):
 
         preprecessed_data_dict = preprocessing(self.data_dict, True, 50, 50)
 
-        tds = TrainTestSplitter(preprecessed_data_dict, 100, 0.2)
+        tds = TrainTestSplitter(preprecessed_data_dict, 10, 0.2)
 
         train, test = next(tds.__iter__())
 

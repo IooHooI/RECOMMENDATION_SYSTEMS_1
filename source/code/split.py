@@ -2,12 +2,6 @@ import numpy as np
 
 
 class TrainTestSplitter:
-    """
-    Сплиттер дробит данные следующим образом:
-    для каждого пользователя, который оценил количество книг больше,
-    чем user_ratings_count_threshold, мы берем долю оценок, равную percent.
-    Из этих данных формируется тестовая выборка.
-    """
 
     def __init__(self, data_dict, user_ratings_count_threshold, percent):
         self.books = data_dict['books']
@@ -20,9 +14,7 @@ class TrainTestSplitter:
     def __iter__(self):
         ratings_grouped_by_user = self.ratings.groupby('User-ID').agg(len)
 
-        users_needed = ratings_grouped_by_user[
-            ratings_grouped_by_user.ISBN > self.user_ratings_count_threshold
-            ].index.values
+        users_needed = ratings_grouped_by_user[ratings_grouped_by_user.ISBN > self.user_ratings_count_threshold].index.values
 
         test_ratings = []
 

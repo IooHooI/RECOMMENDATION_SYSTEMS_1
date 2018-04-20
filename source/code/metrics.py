@@ -7,7 +7,10 @@ def rmse(y_true, y_pred):
 
 
 def precision_recall_at_k(predictions, k=10, threshold=3.5):
-    """Return precision and recall at k metrics for each user."""
+    """
+    Return precision and recall at k metrics for each user.
+    """
+
     # First map the predictions to each user.
     user_est_true = defaultdict(list)
     for uid, _, true_r, est, _ in predictions:
