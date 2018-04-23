@@ -49,7 +49,7 @@ class TestSVDPipeline(unittest.TestCase):
     def test_case_1(self):
         algo = SVD()
         reader = Reader(rating_scale=(1, 10))
-        preprocessed_data_dict = preprocessing(self.data_dict, False, 50, 50)
+        preprocessed_data_dict = preprocessing(self.data_dict, True, 2, 2)
         preprocessed_data_dict['ratings'] = preprocessed_data_dict['ratings'].rename(
             {
                 'User-ID': 'userID',
@@ -63,7 +63,7 @@ class TestSVDPipeline(unittest.TestCase):
         for trainset, testset in kf.split(data):
             algo.fit(trainset)
             predictions = algo.test(testset)
-            precisions, recalls = precision_recall_at_k(predictions, k=5, threshold=0.5)
+            precisions, recalls = precision_recall_at_k(predictions, k=5, threshold=7)
             print('MAP@k={} = {}; MAR@k={} = {}'.format(
                 5,
                 sum(precisions.values()) / len(precisions),
@@ -109,7 +109,7 @@ class TestNMFPipeline(unittest.TestCase):
     def test_case_1(self):
         algo = NMF()
         reader = Reader(rating_scale=(1, 10))
-        preprocessed_data_dict = preprocessing(self.data_dict, False, 50, 50)
+        preprocessed_data_dict = preprocessing(self.data_dict, True, 2, 2)
         preprocessed_data_dict['ratings'] = preprocessed_data_dict['ratings'].rename(
             {
                 'User-ID': 'userID',
@@ -123,7 +123,7 @@ class TestNMFPipeline(unittest.TestCase):
         for trainset, testset in kf.split(data):
             algo.fit(trainset)
             predictions = algo.test(testset)
-            precisions, recalls = precision_recall_at_k(predictions, k=5, threshold=0.5)
+            precisions, recalls = precision_recall_at_k(predictions, k=5, threshold=7)
             print('MAP@k={} = {}; MAR@k={} = {}'.format(
                 5,
                 sum(precisions.values()) / len(precisions),

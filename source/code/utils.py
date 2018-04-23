@@ -11,8 +11,6 @@ def preprocessing(data_dict, is_explicit, user_ratings_count_threshold, book_rat
     # rid of zero ratings (it depends on is_explicit flag):
     if is_explicit:
         ratings = ratings[ratings['Book-Rating'] > 0]
-    else:
-        ratings['Book-Rating'] = 1
     # =========================================================================
     # get rid of the trash in some features:
     books = books[~books['Year-Of-Publication'].isin(['DK Publishing Inc', 'Gallimard'])]
