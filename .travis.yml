@@ -8,4 +8,5 @@ install:
 
 script:
   - cd test/code/
-  - pytest testcfrecommenders.py
+  - pytest test_explicit_cf_recommenders.py
+  - pytest test_explicit_surprise_cf_recommenders.py

@@ -11,6 +11,9 @@ def preprocessing(data_dict, is_explicit, user_ratings_count_threshold, book_rat
     # rid of zero ratings (it depends on is_explicit flag):
     if is_explicit:
         ratings = ratings[ratings['Book-Rating'] > 0]
+    # =========================================================================
+    # get rid of the trash in some features:
+    books = books[~books['Year-Of-Publication'].isin(['DK Publishing Inc', 'Gallimard'])]
     # here we have to perform some data filtration such as:
     # =========================================================================
     # - delete rating of the books we know nothing about:
@@ -32,9 +35,6 @@ def preprocessing(data_dict, is_explicit, user_ratings_count_threshold, book_rat
     ratings_grouped_by_book = ratings.groupby('ISBN').agg(len)
     books_needed = ratings_grouped_by_book[ratings_grouped_by_book['User-ID'] > book_ratings_count_threshold].index.values
     ratings = ratings[ratings.ISBN.isin(books_needed)]
-    # =========================================================================
-    # also get rid of the trash in some features:
-    books = books[~books['Year-Of-Publication'].isin(['DK Publishing Inc', 'Gallimard'])]
 
     preprocessed_data_dict['books'] = books
     preprocessed_data_dict['users'] = users
