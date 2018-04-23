@@ -49,12 +49,7 @@ class TestSVDPipeline(unittest.TestCase):
     def test_case_1(self):
         algo = SVD()
         reader = Reader(rating_scale=(1, 10))
-        preprocessed_data_dict = preprocessing(
-            data_dict=self.data_dict,
-            is_explicit=False,
-            book_ratings_count_threshold=0,
-            user_ratings_count_threshold=0
-        )
+        preprocessed_data_dict = preprocessing(self.data_dict, False, 50, 50)
         preprocessed_data_dict['ratings'] = preprocessed_data_dict['ratings'].rename(
             {
                 'User-ID': 'userID',
@@ -68,8 +63,13 @@ class TestSVDPipeline(unittest.TestCase):
         for trainset, testset in kf.split(data):
             algo.fit(trainset)
             predictions = algo.test(testset)
-            precisions, recalls = precision_recall_at_k(predictions, k=5, threshold=5)
-            print('MAP@k={} = {}; MAR@k={} = {}'.format(5, sum(precisions.values())/len(precisions), 5, sum(recalls.values())/len(recalls)))
+            precisions, recalls = precision_recall_at_k(predictions, k=5, threshold=0.5)
+            print('MAP@k={} = {}; MAR@k={} = {}'.format(
+                5,
+                sum(precisions.values()) / len(precisions),
+                5,
+                sum(recalls.values()) / len(recalls)
+            ))
 
 
 class TestNMFPipeline(unittest.TestCase):
@@ -109,12 +109,7 @@ class TestNMFPipeline(unittest.TestCase):
     def test_case_1(self):
         algo = NMF()
         reader = Reader(rating_scale=(1, 10))
-        preprocessed_data_dict = preprocessing(
-            data_dict=self.data_dict,
-            is_explicit=False,
-            book_ratings_count_threshold=0,
-            user_ratings_count_threshold=0
-        )
+        preprocessed_data_dict = preprocessing(self.data_dict, False, 50, 50)
         preprocessed_data_dict['ratings'] = preprocessed_data_dict['ratings'].rename(
             {
                 'User-ID': 'userID',
@@ -128,5 +123,10 @@ class TestNMFPipeline(unittest.TestCase):
         for trainset, testset in kf.split(data):
             algo.fit(trainset)
             predictions = algo.test(testset)
-            precisions, recalls = precision_recall_at_k(predictions, k=5, threshold=5)
-            print('MAP@k={} = {}; MAR@k={} = {}'.format(5, sum(precisions.values())/len(precisions), 5, sum(recalls.values())/len(recalls)))
+            precisions, recalls = precision_recall_at_k(predictions, k=5, threshold=0.5)
+            print('MAP@k={} = {}; MAR@k={} = {}'.format(
+                5,
+                sum(precisions.values()) / len(precisions),
+                5,
+                sum(recalls.values()) / len(recalls)
+            ))

@@ -9,4 +9,4 @@ install:
 script:
   - cd test/code/
   - pytest test_explicit_cf_recommenders.py
-  - pytest test_explicit_surprise_cf_recommenders.py
+  - pytest test_implicit_surprise_cf_recommenders.py
