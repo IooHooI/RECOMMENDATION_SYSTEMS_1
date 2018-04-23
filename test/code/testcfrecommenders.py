@@ -52,7 +52,7 @@ class TestSVDPipeline(unittest.TestCase):
             ('fit', SVDRecommender(n_components=2))
         ])
 
-        preprecessed_data_dict = preprocessing(self.data_dict, True, 50, 50)
+        preprecessed_data_dict = preprocessing(self.data_dict, True, 0, 0)
 
         tds = TrainTestSplitter(preprecessed_data_dict, 10, 0.2)
 
@@ -65,22 +65,6 @@ class TestSVDPipeline(unittest.TestCase):
         y_true = test['ratings']['Book-Rating'].values
 
         print(rmse(y_true, y_pred))
-
-    def test_case_2(self):
-        pipeline = Pipeline([
-            ('sparse', SparseMatrixCreator()),
-            ('fit', SVDRecommender(n_components=2))
-        ])
-
-        pipeline.fit(preprocessing(self.data_dict, True, 50, 50))
-
-    def test_case_3(self):
-        pipeline = Pipeline([
-            ('sparse', SparseMatrixCreator()),
-            ('fit', SVDRecommender(n_components=2))
-        ])
-
-        pipeline.fit(preprocessing(self.data_dict, True, 50, 50))
 
 
 class TestNMFPipeline(unittest.TestCase):
@@ -123,7 +107,7 @@ class TestNMFPipeline(unittest.TestCase):
             ('fit', NMFRecommender(n_components=2))
         ])
 
-        preprecessed_data_dict = preprocessing(self.data_dict, True, 50, 50)
+        preprecessed_data_dict = preprocessing(self.data_dict, True, 0, 0)
 
         tds = TrainTestSplitter(preprecessed_data_dict, 10, 0.2)
 
@@ -136,22 +120,6 @@ class TestNMFPipeline(unittest.TestCase):
         y_true = test['ratings']['Book-Rating'].values
 
         print(rmse(y_true, y_pred))
-
-    def test_case_2(self):
-        pipeline = Pipeline([
-            ('sparse', SparseMatrixCreator()),
-            ('fit', NMFRecommender(n_components=2))
-        ])
-
-        pipeline.fit(preprocessing(self.data_dict, True, 50, 50))
-
-    def test_case_3(self):
-        pipeline = Pipeline([
-            ('sparse', SparseMatrixCreator()),
-            ('fit', NMFRecommender(n_components=2))
-        ])
-
-        pipeline.fit(preprocessing(self.data_dict, True, 50, 50))
 
 
 if __name__ == '__main__':
