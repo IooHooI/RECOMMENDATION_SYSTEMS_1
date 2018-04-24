@@ -3,6 +3,7 @@ import unittest
 import pandas as pd
 
 from surprise import SVD
+from surprise import SVDpp
 from surprise import NMF
 from surprise.model_selection import KFold
 from surprise import Dataset
@@ -50,6 +51,31 @@ class TestSVDPipeline(unittest.TestCase):
         algo = SVD()
         reader = Reader(rating_scale=(1, 10))
         preprocessed_data_dict = preprocessing(self.data_dict, True, 2, 2)
+        preprocessed_data_dict['ratings'] = preprocessed_data_dict['ratings'].rename(
+            {
+                'User-ID': 'userID',
+                'ISBN': 'itemID',
+                'Book-Rating': 'rating'
+            },
+            axis='columns'
+        )
+        data = Dataset.load_from_df(preprocessed_data_dict['ratings'][['userID', 'itemID', 'rating']], reader)
+        kf = KFold(n_splits=5)
+        for trainset, testset in kf.split(data):
+            algo.fit(trainset)
+            predictions = algo.test(testset)
+            precisions, recalls = precision_recall_at_k(predictions, k=5, threshold=7)
+            print('MAP@k={} = {}; MAR@k={} = {}'.format(
+                5,
+                sum(precisions.values()) / len(precisions),
+                5,
+                sum(recalls.values()) / len(recalls)
+            ))
+
+    def test_case_2(self):
+        algo = SVDpp()
+        reader = Reader(rating_scale=(1, 10))
+        preprocessed_data_dict = preprocessing(self.data_dict, False, 100, 100)
         preprocessed_data_dict['ratings'] = preprocessed_data_dict['ratings'].rename(
             {
                 'User-ID': 'userID',
