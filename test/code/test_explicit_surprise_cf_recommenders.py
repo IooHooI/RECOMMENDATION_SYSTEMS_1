@@ -157,5 +157,6 @@ class TestNMFPipeline(unittest.TestCase):
                 sum(recalls.values()) / len(recalls)
             ))
 
+
 if __name__ == '__main__':
     unittest.main()
