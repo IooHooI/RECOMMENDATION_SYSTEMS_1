@@ -50,7 +50,7 @@ class TestSVDPipeline(unittest.TestCase):
     def test_case_1(self):
         algo = SVD()
         reader = Reader(rating_scale=(1, 10))
-        preprocessed_data_dict = preprocessing(self.data_dict, True, 10, 10)
+        preprocessed_data_dict = preprocessing(self.data_dict, True, 50, 50)
         preprocessed_data_dict['ratings'] = preprocessed_data_dict['ratings'].rename(
             {
                 'User-ID': 'userID',
@@ -135,7 +135,7 @@ class TestNMFPipeline(unittest.TestCase):
     def test_case_1(self):
         algo = NMF()
         reader = Reader(rating_scale=(1, 10))
-        preprocessed_data_dict = preprocessing(self.data_dict, True, 10, 10)
+        preprocessed_data_dict = preprocessing(self.data_dict, True, 50, 50)
         preprocessed_data_dict['ratings'] = preprocessed_data_dict['ratings'].rename(
             {
                 'User-ID': 'userID',

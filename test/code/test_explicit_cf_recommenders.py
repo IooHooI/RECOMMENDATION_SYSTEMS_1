@@ -52,7 +52,7 @@ class TestSVDPipeline(unittest.TestCase):
             ('fit', SVDRecommender(n_components=2))
         ])
 
-        preprecessed_data_dict = preprocessing(self.data_dict, True, 10, 10)
+        preprecessed_data_dict = preprocessing(self.data_dict, True, 50, 50)
 
         tds = TrainTestSplitter(preprecessed_data_dict, 10, 0.2)
 
@@ -107,7 +107,7 @@ class TestNMFPipeline(unittest.TestCase):
             ('fit', NMFRecommender(n_components=2))
         ])
 
-        preprecessed_data_dict = preprocessing(self.data_dict, True, 10, 10)
+        preprecessed_data_dict = preprocessing(self.data_dict, True, 50, 50)
 
         tds = TrainTestSplitter(preprecessed_data_dict, 10, 0.2)
 
