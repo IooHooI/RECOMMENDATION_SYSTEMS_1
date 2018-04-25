@@ -39,7 +39,6 @@ entrypoints==0.2.3
 enum34==1.1.6
 et-xmlfile==1.0.1
 fastcache==1.0.2
-fastparquet==0.1.4
 filelock==2.0.12
 futures==3.1.1
 gensim==3.4.0
