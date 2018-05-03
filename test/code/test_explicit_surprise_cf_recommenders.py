@@ -5,12 +5,11 @@ import pandas as pd
 from surprise import SVD
 from surprise import SVDpp
 from surprise import NMF
-from surprise.model_selection import KFold
 from surprise import Dataset
 from surprise import Reader
 
 from source.code.utils import preprocessing
-from source.code.metrics import precision_recall_at_k
+from source.code.evaluate import my_cross_validation
 
 
 class TestSVDPipeline(unittest.TestCase):
@@ -60,17 +59,7 @@ class TestSVDPipeline(unittest.TestCase):
             axis='columns'
         )
         data = Dataset.load_from_df(preprocessed_data_dict['ratings'][['userID', 'itemID', 'rating']], reader)
-        kf = KFold(n_splits=5)
-        for trainset, testset in kf.split(data):
-            algo.fit(trainset)
-            predictions = algo.test(testset)
-            precisions, recalls = precision_recall_at_k(predictions, k=5, threshold=7)
-            print('MAP@k={} = {}; MAR@k={} = {}'.format(
-                5,
-                sum(precisions.values()) / len(precisions),
-                5,
-                sum(recalls.values()) / len(recalls)
-            ))
+        my_cross_validation(algo, data, k=5, threshold=7, n_splits=5, verbose=True)
 
     def test_case_2(self):
         algo = SVDpp()
@@ -85,17 +74,7 @@ class TestSVDPipeline(unittest.TestCase):
             axis='columns'
         )
         data = Dataset.load_from_df(preprocessed_data_dict['ratings'][['userID', 'itemID', 'rating']], reader)
-        kf = KFold(n_splits=5)
-        for trainset, testset in kf.split(data):
-            algo.fit(trainset)
-            predictions = algo.test(testset)
-            precisions, recalls = precision_recall_at_k(predictions, k=5, threshold=7)
-            print('MAP@k={} = {}; MAR@k={} = {}'.format(
-                5,
-                sum(precisions.values()) / len(precisions),
-                5,
-                sum(recalls.values()) / len(recalls)
-            ))
+        my_cross_validation(algo, data, k=5, threshold=7, n_splits=5, verbose=True)
 
 
 class TestNMFPipeline(unittest.TestCase):
@@ -145,17 +124,7 @@ class TestNMFPipeline(unittest.TestCase):
             axis='columns'
         )
         data = Dataset.load_from_df(preprocessed_data_dict['ratings'][['userID', 'itemID', 'rating']], reader)
-        kf = KFold(n_splits=5)
-        for trainset, testset in kf.split(data):
-            algo.fit(trainset)
-            predictions = algo.test(testset)
-            precisions, recalls = precision_recall_at_k(predictions, k=5, threshold=7)
-            print('MAP@k={} = {}; MAR@k={} = {}'.format(
-                5,
-                sum(precisions.values()) / len(precisions),
-                5,
-                sum(recalls.values()) / len(recalls)
-            ))
+        my_cross_validation(algo, data, k=5, threshold=7, n_splits=5, verbose=True)
 
 
 if __name__ == '__main__':

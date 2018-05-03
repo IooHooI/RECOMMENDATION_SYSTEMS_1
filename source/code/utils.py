@@ -7,6 +7,10 @@ def preprocessing(data_dict, is_explicit, user_ratings_count_threshold, book_rat
 
     preprocessed_data_dict = {}
 
+    print('Before pre-processing: Unique users count: {}; unique items count: {}'.format(
+        ratings['User-ID'].nunique(),
+        ratings['ISBN'].nunique()
+    ))
     # first thing we need to do is to decide whether we have to get
     # rid of zero ratings (it depends on is_explicit flag):
     if is_explicit:
@@ -39,5 +43,10 @@ def preprocessing(data_dict, is_explicit, user_ratings_count_threshold, book_rat
     preprocessed_data_dict['books'] = books
     preprocessed_data_dict['users'] = users
     preprocessed_data_dict['ratings'] = ratings
+
+    print('After pre-processing: Unique users count: {}; unique items count: {}'.format(
+        ratings['User-ID'].nunique(),
+        ratings['ISBN'].nunique()
+    ))
 
     return preprocessed_data_dict
