@@ -80,7 +80,7 @@ msgpack-python==0.4.8
 msrest==0.4.27
 msrestazure==0.4.23
 multipledispatch==0.4.9
-nbconvert==5.3.1
+nbconvert==6.5.1
 nbformat==4.4.0
 networkx==2.0
 nltk==3.2.4
